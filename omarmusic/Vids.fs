@@ -39,6 +39,7 @@ module VidPage =
 
     type Msg =
         | PlaylistRequestComplete of playlistResp.Root
+        | OtherVidsRequestComplete of vidListEnrty.Root []
         | VideoInfoRequestComplete of Vid []
         | VidSelected of string
 
@@ -86,66 +87,33 @@ module VidPage =
             //urls |> Cmd.ofAsyncMsg |> Cmd.map VideoInfoRequestComplete
         with
         |e -> failwith e.Message
-        
-    let initModel = { UChoobs = [||]; Others = [||]; PlayerUrl = None }
 
-    (*
-       { Description = "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp=//www.bigbuckbunny.org",
-          Url = [ "http=//commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" ],
-          Thumbnail = "images/BigBuckBunny.jpg",
-          Title = "Big Buck Bunny"
-        },
-        { Description = "The first Blender Open Movie from 2006",
-          Url = [ "http=//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" ],
-          Thumbnail = "images/ElephantsDream.jpg",
-          Title = "Elephant Dream"
-        },
-        { Description = "HBO GO now works with Chromecast -- the easiest way to enjoy online video on your TV. For when you want to settle into your Iron Throne to watch the latest episodes. For $35.\nLearn how to use Chromecast with HBO GO and more at google.com/chromecast.",
-          Url = [ "http=//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" ],
-          Thumbnail = "images/ForBiggerBlazes.jpg",
-          Title = "For Bigger Blazes"
-        },
-        { Description = "Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.",
-          Url = [ "http=//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" ],
-          Thumbnail = "images/ForBiggerEscapes.jpg",
-          Title = "For Bigger Escape"
-        }
-    *)
-    let others = [|
-                    {
-                        Description = "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp=//www.bigbuckbunny.org";
-                        Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" ;
-                        Thumbnail = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg";
-                        Title = "Big Buck Bunny"
-                    }
-                    {
-                        Description = "The first Blender Open Movie from 2006";
-                        Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" ;
-                        Thumbnail = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg";
-                        Title = "Elephant Dream"
-                    }
-                    {
-                        Description = "HBO GO now works with Chromecast -- the easiest way to enjoy online video on your TV. For when you want to settle into your Iron Throne to watch the latest episodes. For $35.\nLearn how to use Chromecast with HBO GO and more at google.com/chromecast.";
-                        Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" ;
-                        Thumbnail = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg";
-                        Title = "For Bigger Blazes"
-                    }
-                    {
-                        Description = "Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.";
-                        Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" ;
-                        Thumbnail = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg";
-                        Title = "For Bigger Escape"
-                    }
-                |]
-    let init () = initModel, getPlayList 
+    let getOtherVids =
+        async {
+            do! Async.SwitchToThreadPool()
+            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/vids.json"
+            let! resp = Http.AsyncRequestString (url = url)
+            return OtherVidsRequestComplete (vidListEnrty.Parse resp)
+        } |> Cmd.ofAsyncMsg
+    let initModel = { UChoobs = [||]; Others = [||]; PlayerUrl = None }
+    
+    let init () = initModel, getOtherVids //getPlayList 
     
     let update msg model =
         match msg with
         | PlaylistRequestComplete  playlistResp ->
             let vidids = playlistResp.Items |> Array.map (fun itm -> itm.ContentDetails.VideoId)
             model,getUrls vidids
+        | OtherVidsRequestComplete otherVids ->
+            let others = otherVids |> Array.map (fun o ->{
+                                                            Title = o.Title
+                                                            Description = o.Description
+                                                            Thumbnail = o.Thumbnail
+                                                            Url = o.Url
+                                                         })
+            { model with Others = others}, getPlayList
         | VideoInfoRequestComplete vidList ->
-            { model with UChoobs = vidList; Others = others }, Cmd.none
+            { model with UChoobs = vidList }, Cmd.none
         | VidSelected url ->
             { model with PlayerUrl = Some url }, Cmd.none
         |_ -> model, Cmd.none
@@ -176,6 +144,7 @@ module VidPage =
         View.TabbedPage(
             title = "Videos",
             created = (fun target -> target.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom) |> ignore ),
+            tabIndex = 1,
             children = [
                 View.ContentPage(
                     title = "Youtube",
