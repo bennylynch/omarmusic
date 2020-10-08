@@ -39,7 +39,7 @@ module VidPage =
 
     type Msg =
         | PlaylistRequestComplete of playlistResp.Root
-        | OtherVidsRequestComplete of vidListEnrty.Root []
+        | OtherVidsRequestComplete of vidListEntry.Root []
         | VideoInfoRequestComplete of Vid []
         | VidSelected of string
 
@@ -93,7 +93,7 @@ module VidPage =
             do! Async.SwitchToThreadPool()
             let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/vids.json"
             let! resp = Http.AsyncRequestString (url = url)
-            return OtherVidsRequestComplete (vidListEnrty.Parse resp)
+            return OtherVidsRequestComplete (vidListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
     let initModel = { UChoobs = [||]; Others = [||]; PlayerUrl = None }
     
