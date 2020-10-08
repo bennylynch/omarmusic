@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="json\" />
+    <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\vids.json" />
@@ -24,6 +25,7 @@
     <Compile Include="UChoobPage.fs" />
     <Compile Include="WebPage.fs" />
     <Compile Include="InstaPage.fs" />
+    <Compile Include="Events.fs" />
     <Compile Include="Vids.fs" />
     <Compile Include="omarmusic.fs" />
     <None Include="youtube_api.txt" />
@@ -39,6 +41,6 @@
     <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
     <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.3" />
     <PackageReference Include="Fabulous.XamarinForms.VideoManager" Version="0.57.0" />
-    <Compile Include="Events.fs" />
+    <None Include="img\jazzcafe.png" />
   </ItemGroup>
 </Project>

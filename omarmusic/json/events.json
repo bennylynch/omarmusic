@@ -3,14 +3,14 @@
     "Title": "Streatham festival - live stream",
     "Date": "13/10/2020",
     "Description": "live stream",
-    "TicketUrl": "",
-    "Thumbnail": "https://omarmusic.co.uk/event/streatham-festival-live-stream/"
+    "TicketUrl": "https://omarmusic.co.uk/event/streatham-festival-live-stream/",
+    "Thumbnail": "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/img/jazzcafe.png"
   },
   {
     "Title": "with qbca, Jazz cafe, NW1",
     "Date": "28/11/2020",
     "Description": "jazz cafe",
-    "TicketUrl": "",
-    "Thumbnail": "https://thejazzcafelondon.com/event/omar-qcba-early-show/"
+    "TicketUrl": "https://thejazzcafelondon.com/event/omar-qcba-early-show/",
+    "Thumbnail": "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/img/jazzcafe.png"
   }
 ]

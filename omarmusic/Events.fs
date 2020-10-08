@@ -49,24 +49,27 @@ module EventsPage =
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
-        View.ListView(
-            hasUnevenRows = true,
-            margin = Thickness 10.,
-            items = [ for event in model.Events ->
-                            View.ViewCell (
-                                height = 100.,
-                                view =
-                                    View.Grid(
+        View.ContentPage(
+            content =
+                View.ListView(
+                    hasUnevenRows = true,
+                    margin = Thickness 10.,
+                    items = [ for event in model.Events ->
+                                    View.ViewCell (
                                         height = 100.,
-                                        coldefs = [ Absolute 100.; Star ],
-                                        rowdefs = [ Absolute 15.; Star ],
-                                        children = [
-                                            View.Label(text = event.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
-                                            View.Label(text = event.Description).Column(1).Row(1).RowSpan(2)
-                                            View.Image(source = ImagePath event.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
-                                        ]
-                                    ),
-                                tapped = (fun _ -> () )
-                            )
-                    ]
-            )
+                                        view =
+                                            View.Grid(
+                                                height = 100.,
+                                                coldefs = [ Absolute 100.; Star ],
+                                                rowdefs = [ Absolute 15.; Star ],
+                                                children = [
+                                                    View.Label(text = event.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
+                                                    View.Label(text = event.Description).Column(1).Row(1).RowSpan(2)
+                                                    View.Image(source = ImagePath event.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
+                                                ]
+                                            ),
+                                        tapped = (fun _ -> () )
+                                    )
+                            ]
+                    )
+        )

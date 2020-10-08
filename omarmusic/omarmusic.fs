@@ -23,12 +23,14 @@ module App =
         | FBPageMsg of WebPage.Msg
         | WebPageMsg of WebPage.Msg
         | InstaPageMsg of InstaPage.Msg
+        | EventsPageMsg of EventsPage.Msg
         | NavigationPopped
         | ShowVids
         | ShowTweets
         | ShowInsta
         | ShowFB
         | ShowWeb
+        | ShowEvents
 
         
 
@@ -38,6 +40,7 @@ module App =
         FBPageModel : WebPage.Model option
         WebPageModel : WebPage.Model option
         InstaPageModel : InstaPage.Model option
+        EventsPageModel : EventsPage.Model option
         (*/ Workaround Cmd limitation 
         Cannot pop a page in page stack and send Cmd at the same time
         Otherwise it would pop pages 2 times in NavigationPage 
@@ -53,7 +56,9 @@ module App =
           TweetPage: ViewElement option
           FBPage: ViewElement option
           WebPage: ViewElement option
-          InstaPage: ViewElement option 
+          InstaPage: ViewElement option
+          EventsPage: ViewElement option
+
         }
 
     let initModel = {
@@ -62,6 +67,7 @@ module App =
         FBPageModel = None
         WebPageModel = None
         InstaPageModel = None
+        EventsPageModel = None
         WorkaroundNavPageBug = false
         WorkaroundNavPageBugPendingCmd = Cmd.none
     }              
@@ -74,19 +80,23 @@ module App =
         let fbModel = model.FBPageModel
         let instaModel = model.InstaPageModel
         let webModel = model.WebPageModel
-        match vidsModel,tweetsModel, fbModel, instaModel, webModel  with
-        | None, None, None, None, None ->
+        let eventsModel = model.EventsPageModel
+
+        match vidsModel,tweetsModel, fbModel, instaModel, webModel, eventsModel  with
+        | None, None, None, None, None, None ->
             model
-        |Some _,_,_,_,_ ->
+        |Some _,_,_,_,_,_ ->
             {model with VidsPageModel = None}
-        |_, Some _,_,_,_->
+        |_, Some _,_,_,_,_->
             {model with TweetPageModel = None}
-        |_,_, Some _,_,_->
+        |_,_, Some _,_,_,_->
             {model with FBPageModel = None}
-        |_,_,_, Some _,_->
+        |_,_,_, Some _,_,_->
             {model with InstaPageModel = None}
-        |_,_,_, _, Some _->
+        |_,_,_, _, Some _,_->
             {model with WebPageModel = None}
+        |_,_,_, _, _, Some _->
+            {model with EventsPageModel = None}
 
     let update msg model =
         match msg with
@@ -114,16 +124,26 @@ module App =
         | ShowWeb ->
             let webModel, cmd = WebPage.init "https://omarlyefook.bandcamp.com/"
             { model with WebPageModel = Some webModel},  (Cmd.map WebPageMsg cmd)
-            
+
+        | ShowEvents ->
+            let evtsModel, cmd = EventsPage.init ()
+            { model with EventsPageModel = Some evtsModel },  (Cmd.map EventsPageMsg cmd)
+                
         | ShowInsta ->
             let instaModel, cmd = InstaPage.init()
             { model with InstaPageModel = Some instaModel}, (Cmd.map InstaPageMsg cmd)
+
         | VidPageMsg vidpagemsg ->
             let newModel, cmd = VidPage.update vidpagemsg (model.VidsPageModel.Value)
             { model with VidsPageModel = Some newModel }, (Cmd.map VidPageMsg cmd)
+
         | TweetPageMsg tweetmsg ->
             let newModel, cmd = TweetPage.update tweetmsg (model.TweetPageModel.Value)
             { model with TweetPageModel = Some newModel }, (Cmd.map TweetPageMsg cmd)
+        | EventsPageMsg evtspagemsg ->
+            let newModel, cmd = EventsPage.update evtspagemsg (model.EventsPageModel.Value)
+            { model with EventsPageModel = Some newModel }, (Cmd.map EventsPageMsg cmd)
+
         |_ -> model, Cmd.none
 
     let getPages allPages =
@@ -133,14 +153,16 @@ module App =
         let fbPage = allPages.FBPage
         let webPage = allPages.WebPage
         let instaPage = allPages.InstaPage
-        
-        match vidsPage,tweetPage, fbPage, instaPage, webPage with
-        | None,None,None,None,None       -> [ mainPage ]
-        | Some vPage,_,_,_,_          -> [ mainPage; vPage ]
-        |_, Some tPage,_,_,_          -> [ mainPage; tPage ]
-        |_,_, Some fPage,_,_          -> [ mainPage; fPage ]
-        |_,_,_, Some iPage,_          -> [ mainPage; iPage ]
-        |_,_,_,_, Some wPage          -> [ mainPage; wPage ]
+        let eventsPage = allPages.EventsPage
+
+        match vidsPage,tweetPage, fbPage, instaPage, webPage, eventsPage with
+        | None,None,None,None,None,None       -> [ mainPage ]
+        | Some vPage,_,_,_,_,_          -> [ mainPage; vPage ]
+        |_, Some tPage,_,_,_,_          -> [ mainPage; tPage ]
+        |_,_, Some fPage,_,_,_          -> [ mainPage; fPage ]
+        |_,_,_, Some iPage,_,_          -> [ mainPage; iPage ]
+        |_,_,_,_, Some wPage,_          -> [ mainPage; wPage ]
+        |_,_,_,_,_, Some ePage          -> [ mainPage; ePage ]
         |_                            -> [ mainPage ]
 
     let view (model: Model) (dispatch : Msg -> unit ) =
@@ -159,7 +181,10 @@ module App =
         let instaPage =
             model.InstaPageModel
             |> Option.map (fun eModel -> InstaPage.view eModel (InstaPageMsg >> dispatch))
-        
+        let eventsPage =
+            model.EventsPageModel
+            |> Option.map (fun eModel -> EventsPage.view eModel (EventsPageMsg >> dispatch))
+
         let mainPage =
             View.ContentPage (
                 title = "Omar Music",
@@ -178,16 +203,10 @@ module App =
                                       View.StackLayout(
                                           orientation = StackOrientation.Horizontal,
                                           children = [
-                                                  View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowVids )))
-                                                  View.Button( text = "Events", margin = Thickness 20., command = (fun () -> dispatch (ShowVids )))
+                                                  View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents )))
+                                                  View.Button( text = "Events", margin = Thickness 20., command = (fun () -> dispatch (ShowEvents )))
                                           ]).Row(1).Column(1).ColumnSpan(3)
-
-                                      //View.StackLayout(
-                                      //    orientation = StackOrientation.Horizontal,
-                                      //    children = [
-                                      //            View.Image( source = ImagePath "calendar")
-                                      //            View.Label( text = "Merch", margin = Thickness 20.)
-                                      //    ]).Row(2).Column(1).ColumnSpan(3)
+                                      
                                       View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowVids )).Row(2).Column(1).ColumnSpan(3)
 
                                       View.StackLayout(
@@ -209,33 +228,14 @@ module App =
                         ]
                     )
             )
-            (*
-        let mainPage =
-            View.ContentPage(
-                backgroundColor = Color.Black,
-                content = View.Grid(
-                    //height = 200.,
-                    //coldefs = [ Star; Star ],
-                    rowdefs = [ Star; Absolute 50.; Absolute 50.; Absolute 50.; Absolute 50. ],
-                    children = [
-                        View.ImageButton( source = ImagePath "youtube", command = (fun () -> dispatch (ShowVids ))).Row(1).Column(0)
-                        //View.Label(text = "Vids").Row(1).Column(1)
-                        View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(2).Column(0)
-                        //View.Label(text = "Tweets").Row(2).Column(1)
-                        View.ImageButton( source = ImagePath "insta",command = (fun () -> dispatch (ShowInsta ))).Row(3).Column(0)
-                        //View.Label(text = "Instas").Row(3).Column(1)
-                        View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowFB ))).Row(4).Column(0)
-                        //View.Label(text = "faceboooks").Row(4).Column(1)
-                    ]
-                )
-            ).BackgroundImageSource(ImagePath "background.jpeg")
-        *)
+            
         let pages = { MainPage = mainPage
                       VidsPage = vidsPage
                       TweetPage = tweetPage
                       FBPage = fbPage
                       WebPage = webPage
                       InstaPage = instaPage
+                      EventsPage = eventsPage
                     } |> getPages
 
         View.NavigationPage (

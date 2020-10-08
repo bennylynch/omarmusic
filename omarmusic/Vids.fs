@@ -147,25 +147,6 @@ module VidPage =
             tabIndex = 1,
             children = [
                 View.ContentPage(
-                    title = "Youtube",
-                    content =
-                        View.StackLayout (
-                            children =
-                                match model.PlayerUrl with
-                                | None ->
-                                    [ vidlist model.UChoobs]
-                                | Some _ ->
-                                    [ View.VideoView(
-                                            source = model.PlayerUrl.Value,
-                                            showControls = true,
-                                            height = 200.,
-                                            autoPlay = true
-                                        )
-                                      (vidlist model.UChoobs)
-                                    ]
-                        )
-                ).IconImageSource(Image.fromPath "youtube")
-                View.ContentPage(
                     title = "Others",
                     content =
                         View.StackLayout (
@@ -184,5 +165,25 @@ module VidPage =
                                     ]
                         )
                 ).IconImageSource(Image.fromPath "video")
+                View.ContentPage(
+                    title = "Youtube",
+                    content =
+                        View.StackLayout (
+                            children =
+                                match model.PlayerUrl with
+                                | None ->
+                                    [ vidlist model.UChoobs]
+                                | Some _ ->
+                                    [ View.VideoView(
+                                            source = model.PlayerUrl.Value,
+                                            showControls = true,
+                                            height = 200.,
+                                            autoPlay = true
+                                        )
+                                      (vidlist model.UChoobs)
+                                    ]
+                        )
+                ).IconImageSource(Image.fromPath "youtube")
+                
             ]
         ).HasNavigationBar(true).HasBackButton(true)
