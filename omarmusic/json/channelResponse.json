@@ -1,0 +1,23 @@
+﻿{
+  "kind": "youtube#channelListResponse",
+  "etag": "ZEOELdUiVBiVjjaNWt6JMvfw9xY",
+  "pageInfo": {
+    "resultsPerPage": 1
+  },
+  "items": [
+    {
+      "kind": "youtube#channel",
+      "etag": "Fg0GMGx4WqU4c2X80zN_6epzpsI",
+      "id": "UCM-KzHZFb4Pds3ZT4QR_u3w",
+      "contentDetails": {
+        "relatedPlaylists": {
+          "likes": "",
+          "favorites": "",
+          "uploads": "UUM-KzHZFb4Pds3ZT4QR_u3w",
+          "watchHistory": "HL",
+          "watchLater": "WL"
+        }
+      }
+    }
+  ]
+}

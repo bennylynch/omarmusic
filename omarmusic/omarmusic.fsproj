@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+    <!-- workaround for VSMac bug https://github.com/mono/monodevelop/pull/5137 -->
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="json\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EmptyTextFile.txt" />
+    <Compile Include="Models.fs" />
+    <Compile Include="TwitterPage.fs" />
+    <Compile Include="UChoobPage.fs" />
+    <Compile Include="WebPage.fs" />
+    <Compile Include="InstaPage.fs" />
+    <Compile Include="Vids.fs" />
+    <Compile Include="omarmusic.fs" />
+    <None Include="youtube_api.txt" />
+    <None Include="json\channelResponse.json" />
+    <None Include="json\playlistResponse.json" />
+    <None Include="json\playerResponse.json" />
+    <None Include="json\service_cert.p12" />
+    <None Include="json\EmptyJSONFile.json" />
+    <None Include="Scratch.fsx" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Fabulous.XamarinForms" Version="0.57.0" />
+    <PackageReference Include="Plugin.MediaManager" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="FSharp.Core" Version="4.7.2" />
+    <PackageReference Include="FSharp.Data" Version="3.3.3" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
+    <PackageReference Include="Fabulous.XamarinForms.LiveUpdate" Version="0.57.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
+    <PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.3" />
+    <PackageReference Include="Fabulous.XamarinForms.VideoManager" Version="0.57.0" />
+    <None Include="service_account.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
