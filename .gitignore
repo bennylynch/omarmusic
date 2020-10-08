@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # service_account info
-./omarmusic/service_account.json
+omarmusic/service_account.json
