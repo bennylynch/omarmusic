@@ -31,7 +31,8 @@ module EventsPage =
 
     type Msg =
         | EventsRequestComplete of eventListEntry.Root []
-        
+        | RowClicked of string
+
     let getEvents =
         async {
             do! Async.SwitchToThreadPool()
@@ -61,14 +62,15 @@ module EventsPage =
                                             View.Grid(
                                                 height = 100.,
                                                 coldefs = [ Absolute 100.; Star ],
-                                                rowdefs = [ Absolute 15.; Star ],
+                                                rowdefs = [ Absolute 15.; Absolute 50.; Star ],
                                                 children = [
                                                     View.Label(text = event.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
                                                     View.Label(text = event.Description).Column(1).Row(1).RowSpan(2)
-                                                    View.Image(source = ImagePath event.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
+                                                    View.Label(text = event.TicketUrl ).Column(1).Row(2).RowSpan(2)
+                                                    View.Image(source = ImagePath event.Thumbnail, backgroundColor = Color.Black, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
                                                 ]
                                             ),
-                                        tapped = (fun _ -> () )
+                                        tapped = (fun _ -> dispatch ( RowClicked event.TicketUrl ))
                                     )
                             ]
                     )

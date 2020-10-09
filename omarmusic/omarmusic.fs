@@ -29,7 +29,7 @@ module App =
         | ShowTweets
         | ShowInsta
         | ShowFB
-        | ShowWeb
+        | ShowWeb of string
         | ShowEvents
 
         
@@ -121,8 +121,8 @@ module App =
             let fbModel, cmd = WebPage.init "https://m.facebook.com/barry"
             { model with FBPageModel = Some fbModel},  (Cmd.map FBPageMsg cmd)
 
-        | ShowWeb ->
-            let webModel, cmd = WebPage.init "https://omarlyefook.bandcamp.com/"
+        | ShowWeb url ->
+            let webModel, cmd = WebPage.init url // 
             { model with WebPageModel = Some webModel},  (Cmd.map WebPageMsg cmd)
 
         | ShowEvents ->
@@ -141,8 +141,13 @@ module App =
             let newModel, cmd = TweetPage.update tweetmsg (model.TweetPageModel.Value)
             { model with TweetPageModel = Some newModel }, (Cmd.map TweetPageMsg cmd)
         | EventsPageMsg evtspagemsg ->
-            let newModel, cmd = EventsPage.update evtspagemsg (model.EventsPageModel.Value)
-            { model with EventsPageModel = Some newModel }, (Cmd.map EventsPageMsg cmd)
+            match evtspagemsg with
+            | EventsPage.Msg.RowClicked s ->
+                let webModel, cmd = WebPage.init s
+                { model with WebPageModel = Some webModel},  (Cmd.map WebPageMsg cmd)
+            | _ ->
+                let newModel, cmd = EventsPage.update evtspagemsg (model.EventsPageModel.Value)
+                { model with EventsPageModel = Some newModel }, (Cmd.map EventsPageMsg cmd)
 
         |_ -> model, Cmd.none
 
@@ -200,23 +205,12 @@ module App =
                                   coldefs = [ Star; Star; Star; Star ],
                                   rowdefs = [ Star; Absolute 60.; Absolute 60.; Absolute 60.; Absolute 50. ],
                                   children = [
-                                      View.StackLayout(
-                                          orientation = StackOrientation.Horizontal,
-                                          children = [
-                                                  View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents )))
-                                                  View.Button( text = "Events", margin = Thickness 20., command = (fun () -> dispatch (ShowEvents )))
-                                          ]).Row(1).Column(1).ColumnSpan(3)
                                       
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowVids )).Row(2).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(1).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(3).Column(1).ColumnSpan(3)
 
-                                      View.StackLayout(
-                                          orientation = StackOrientation.Horizontal,
-                                          children = [
-                                                  View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch (ShowVids )))
-                                                  View.Button( text = "Videos", margin = Thickness 20., command = (fun () -> dispatch (ShowVids )))
-                                          ]).Row(3).Column(1).ColumnSpan(3)
-
-                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb ))).Row(4).Column(0)
+                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(4).Column(0)
                                       View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(4).Column(1)
                                       View.ImageButton( source = ImagePath "insta",command = (fun () -> dispatch (ShowInsta ))).Row(4).Column(2)
                                       View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowFB ))).Row(4).Column(3)

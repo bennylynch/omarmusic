@@ -164,7 +164,7 @@ module VidPage =
                                       vidlist model.Others
                                     ]
                         )
-                ).IconImageSource(Image.fromPath "video")
+                ).IconImageSource(Image.fromPath "vid")
                 View.ContentPage(
                     title = "Youtube",
                     content =
