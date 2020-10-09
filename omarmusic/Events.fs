@@ -50,6 +50,7 @@ module EventsPage =
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
+        
         View.ContentPage(
             content =
                 View.ListView(

@@ -24,8 +24,10 @@ module App =
         | WebPageMsg of WebPage.Msg
         | InstaPageMsg of InstaPage.Msg
         | EventsPageMsg of EventsPage.Msg
+        | SoundsPageMsg of SoundsPage.Msg
         | NavigationPopped
         | ShowVids
+        | ShowSounds
         | ShowTweets
         | ShowInsta
         | ShowFB
@@ -41,6 +43,7 @@ module App =
         WebPageModel : WebPage.Model option
         InstaPageModel : InstaPage.Model option
         EventsPageModel : EventsPage.Model option
+        SoundsPageModel : SoundsPage.Model option
         (*/ Workaround Cmd limitation 
         Cannot pop a page in page stack and send Cmd at the same time
         Otherwise it would pop pages 2 times in NavigationPage 
@@ -58,7 +61,7 @@ module App =
           WebPage: ViewElement option
           InstaPage: ViewElement option
           EventsPage: ViewElement option
-
+          SoundsPage: ViewElement option
         }
 
     let initModel = {
@@ -68,6 +71,7 @@ module App =
         WebPageModel = None
         InstaPageModel = None
         EventsPageModel = None
+        SoundsPageModel = None
         WorkaroundNavPageBug = false
         WorkaroundNavPageBugPendingCmd = Cmd.none
     }              
@@ -81,22 +85,25 @@ module App =
         let instaModel = model.InstaPageModel
         let webModel = model.WebPageModel
         let eventsModel = model.EventsPageModel
+        let soundsModel = model.SoundsPageModel
 
-        match vidsModel,tweetsModel, fbModel, instaModel, webModel, eventsModel  with
-        | None, None, None, None, None, None ->
+        match vidsModel,tweetsModel, fbModel, instaModel, webModel, eventsModel, soundsModel  with
+        | None, None, None, None, None, None, None ->
             model
-        |Some _,_,_,_,_,_ ->
+        |Some _,_,_,_,_,_,_ ->
             {model with VidsPageModel = None}
-        |_, Some _,_,_,_,_->
+        |_, Some _,_,_,_,_,_->
             {model with TweetPageModel = None}
-        |_,_, Some _,_,_,_->
+        |_,_, Some _,_,_,_,_->
             {model with FBPageModel = None}
-        |_,_,_, Some _,_,_->
+        |_,_,_, Some _,_,_,_->
             {model with InstaPageModel = None}
-        |_,_,_, _, Some _,_->
+        |_,_,_, _, Some _,_,_->
             {model with WebPageModel = None}
-        |_,_,_, _, _, Some _->
+        |_,_,_, _, _, Some _,_->
             {model with EventsPageModel = None}
+        |_,_,_, _, _,_, Some _->
+            {model with SoundsPageModel = None}
 
     let update msg model =
         match msg with
@@ -124,7 +131,9 @@ module App =
         | ShowWeb url ->
             let webModel, cmd = WebPage.init url // 
             { model with WebPageModel = Some webModel},  (Cmd.map WebPageMsg cmd)
-
+        | ShowSounds ->
+            let soundsModel, cmd = SoundsPage.init ()
+            { model with SoundsPageModel = Some soundsModel},  (Cmd.map SoundsPageMsg cmd)
         | ShowEvents ->
             let evtsModel, cmd = EventsPage.init ()
             { model with EventsPageModel = Some evtsModel },  (Cmd.map EventsPageMsg cmd)
@@ -189,7 +198,9 @@ module App =
         let eventsPage =
             model.EventsPageModel
             |> Option.map (fun eModel -> EventsPage.view eModel (EventsPageMsg >> dispatch))
-
+        let soundsPage =
+            model.SoundsPageModel
+            |> Option.map (fun eModel -> SoundsPage.view eModel (SoundsPageMsg >> dispatch))
         let mainPage =
             View.ContentPage (
                 title = "Omar Music",
@@ -207,7 +218,8 @@ module App =
                                   children = [
                                       
                                       View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(1).Column(1).ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1).ColumnSpan(3)
+                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ( ShowSounds ) )).Row(2).Column(1).ColumnSpan(3)
                                       View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(3).Column(1).ColumnSpan(3)
 
                                       View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(4).Column(0)
@@ -230,6 +242,7 @@ module App =
                       WebPage = webPage
                       InstaPage = instaPage
                       EventsPage = eventsPage
+                      SoundsPage = soundsPage
                     } |> getPages
 
         View.NavigationPage (
