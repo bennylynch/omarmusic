@@ -202,7 +202,7 @@ module App =
             model.SoundsPageModel
             |> Option.map (fun eModel -> SoundsPage.view eModel (SoundsPageMsg >> dispatch))
         let mainPage =
-            View.ContentPage (
+            (View.ContentPage (
                 //title = "Omar Music",
                 backgroundColor = Color.Black,
                 content =
@@ -214,20 +214,19 @@ module App =
                                   .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                               View.Grid(
                                   coldefs = [ Star; Star; Star; Star ],
-                                  rowdefs = [ Star; Absolute 200.; Star ],
+                                  rowdefs = [ Star; Absolute 320.; Absolute 50.; Absolute 20.; Absolute 50.; Star ],
                                   children = [
                                       
-                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(0).Column(0)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook"))).Row(0).Column(1)//.ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(0).Column(3)//.ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(0).Column(4)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(4).Column(0)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://open.spotify.com/artist/6T5kddfKCWsUzpHbiAPIsd"))).Row(4).Column(1)
+                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(4).Column(2)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch ShowVids )).Row(4).Column(3)//.ColumnSpan(3)
 
-                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(2).Column(0)
+                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/"))).Row(2).Column(0)
                                       View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(2).Column(1)
                                       View.ImageButton( source = ImagePath "insta",command = (fun () -> dispatch (ShowInsta ))).Row(2).Column(2)
-                                      View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowFB ))).Row(2).Column(3)
-                                        
-                                      //)).Row(4).Column(0).ColumnSpan(4)
+                                      View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/") )).Row(2).Column(3)
                                 ]
                             )
                             .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
@@ -235,7 +234,7 @@ module App =
                             .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                         ]
                     )
-            )
+            )).HasNavigationBar(false).HasBackButton(false)
             
         let pages = { MainPage = mainPage
                       VidsPage = vidsPage
@@ -247,10 +246,10 @@ module App =
                       SoundsPage = soundsPage
                     } |> getPages
 
-        View.NavigationPage (
-            popped = (fun _ -> dispatch NavigationPopped),
-            pages = pages
-        )
+        (View.NavigationPage (
+                popped = (fun _ -> dispatch NavigationPopped),
+                pages = pages
+            )).HasNavigationBar(false).HasBackButton(false)
     // Note, this declaration is needed if you enable LiveUpdate
     let program = XamarinFormsProgram.mkProgram init update view
 

@@ -53,6 +53,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -62,8 +63,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Development: Ben Lynch (ZHQQ5MP6S9)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -77,6 +79,7 @@
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -89,6 +92,7 @@
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -166,18 +170,19 @@
     <Folder Include="Assets.xcassets\headphones.imageset\" />
     <Folder Include="Assets.xcassets\website.imageset\" />
     <Folder Include="Assets.xcassets\vid.imageset\" />
+    <Folder Include="Assets.xcassets\merch.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-7.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\video-5.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-1.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-2.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-3.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-4.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-5.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-6.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-8.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-1.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-2.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-3.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-4.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-5.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-6.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-7.png" />
     <ImageAsset Include="Assets.xcassets\vid.imageset\video-8.png" />
     <ImageAsset Include="Assets.xcassets\vid.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\vid.imageset\video.png" />
@@ -276,6 +281,16 @@
     <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-3.png" />
     <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-4.png" />
     <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-6.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\video-5.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-1.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-2.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-3.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-4.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-5.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-6.png" />
+    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-7.png" />
     <ImageAsset Include="Assets.xcassets\headphones.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\headphones.imageset\headphones-5.png" />
     <ImageAsset Include="Assets.xcassets\headphones.imageset\phones-4.png" />
@@ -297,10 +312,12 @@
     <ImageAsset Include="Assets.xcassets\website.imageset\www-5.png" />
     <ImageAsset Include="Assets.xcassets\website.imageset\www-6.png" />
     <ImageAsset Include="Assets.xcassets\website.imageset\www-7.png" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
     <ProjectReference Include="..\omarmusic\omarmusic.fsproj">
       <Project>{51213DF6-7917-4773-9BCF-8B7F68D63509}</Project>
       <Name>omarmusic</Name>
     </ProjectReference>
+    <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets')" />
 </Project>

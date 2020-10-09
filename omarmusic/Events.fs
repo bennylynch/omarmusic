@@ -52,6 +52,7 @@ module EventsPage =
     let view (model : Model) dispatch =
         
         View.ContentPage(
+            title = "Events",
             content =
                 View.ListView(
                     hasUnevenRows = true,
