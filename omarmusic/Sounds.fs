@@ -36,12 +36,12 @@ module SoundsPage =
     let getSounds =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/sounds.json"
+            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
             let! resp = Http.AsyncRequestString (url = url)
             return EventsRequestComplete (eventListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
 
-    let init () = {Model = None} , getSounds 
+    let init () = {Model = None} , Cmd.none//getSounds 
     
     let update msg model =
         match msg with
@@ -52,7 +52,7 @@ module SoundsPage =
     let view (model : Model) dispatch =
         View.ContentPage (
             content = View.MediaElement (
-                        source = Media.fromPath "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
-            
+                        source = Media.fromPath "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3",
+                        showsPlaybackControls = true
                       )
         )

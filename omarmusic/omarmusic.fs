@@ -170,14 +170,14 @@ module App =
         let eventsPage = allPages.EventsPage
 
         match vidsPage,tweetPage, fbPage, instaPage, webPage, eventsPage with
-        | None,None,None,None,None,None       -> [ mainPage ]
+        | None,None,None,None,None,None -> [ mainPage ]
         | Some vPage,_,_,_,_,_          -> [ mainPage; vPage ]
         |_, Some tPage,_,_,_,_          -> [ mainPage; tPage ]
         |_,_, Some fPage,_,_,_          -> [ mainPage; fPage ]
         |_,_,_, Some iPage,_,_          -> [ mainPage; iPage ]
         |_,_,_,_, Some wPage,_          -> [ mainPage; wPage ]
         |_,_,_,_,_, Some ePage          -> [ mainPage; ePage ]
-        |_                            -> [ mainPage ]
+        |_                              -> [ mainPage ]
 
     let view (model: Model) (dispatch : Msg -> unit ) =
         let vidsPage =
@@ -217,10 +217,10 @@ module App =
                                   rowdefs = [ Star; Absolute 60.; Absolute 60.; Absolute 60.; Absolute 50. ],
                                   children = [
                                       
-                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(1).Column(1).ColumnSpan(3)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1).ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ( ShowSounds ) )).Row(2).Column(1).ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(3).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(1).Column(0)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1)//.ColumnSpan(3)
+                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ( ShowSounds ) )).Row(2).Column(1).ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(3).Column(1)//.ColumnSpan(3)
 
                                       View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(4).Column(0)
                                       View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(4).Column(1)
