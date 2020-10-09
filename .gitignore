@@ -351,3 +351,5 @@ MigrationBackup/
 
 # service_account info
 omarmusic/service_account.json
+# hidden file
+.DS_Store/

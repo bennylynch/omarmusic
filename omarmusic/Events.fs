@@ -68,7 +68,7 @@ module EventsPage =
                                                 children = [
                                                     View.Label(text = event.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
                                                     View.Label(text = event.Description).Column(1).Row(1).RowSpan(2)
-                                                    View.Label(text = event.TicketUrl ).Column(1).Row(2).RowSpan(2)
+                                                    View.Label(text = event.Date.ToString() ).Column(1).Row(2).RowSpan(2)
                                                     View.Image(source = ImagePath event.Thumbnail, backgroundColor = Color.Black, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
                                                 ]
                                             ),
