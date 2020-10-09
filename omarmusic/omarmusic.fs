@@ -203,7 +203,7 @@ module App =
             |> Option.map (fun eModel -> SoundsPage.view eModel (SoundsPageMsg >> dispatch))
         let mainPage =
             View.ContentPage (
-                title = "Omar Music",
+                //title = "Omar Music",
                 backgroundColor = Color.Black,
                 content =
                     View.RelativeLayout(
@@ -214,18 +214,20 @@ module App =
                                   .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                               View.Grid(
                                   coldefs = [ Star; Star; Star; Star ],
-                                  rowdefs = [ Star; Absolute 60.; Absolute 60.; Absolute 60.; Absolute 50. ],
+                                  rowdefs = [ Star; Absolute 200.; Star ],
                                   children = [
                                       
-                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(1).Column(0)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook") )).Row(2).Column(1)//.ColumnSpan(3)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ( ShowSounds ) )).Row(2).Column(1).ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(3).Column(1)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(0).Column(0)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://soundcloud.com/search?q=omar%20lye%20fook"))).Row(0).Column(1)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(0).Column(3)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(0).Column(4)//.ColumnSpan(3)
 
-                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(4).Column(0)
-                                      View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(4).Column(1)
-                                      View.ImageButton( source = ImagePath "insta",command = (fun () -> dispatch (ShowInsta ))).Row(4).Column(2)
-                                      View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowFB ))).Row(4).Column(3)
+                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(2).Column(0)
+                                      View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(2).Column(1)
+                                      View.ImageButton( source = ImagePath "insta",command = (fun () -> dispatch (ShowInsta ))).Row(2).Column(2)
+                                      View.ImageButton( source = ImagePath "fb",command = (fun () -> dispatch (ShowFB ))).Row(2).Column(3)
+                                        
+                                      //)).Row(4).Column(0).ColumnSpan(4)
                                 ]
                             )
                             .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
