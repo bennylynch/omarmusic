@@ -26,33 +26,88 @@ module SoundsPage =
 
     type Model = 
        {
-        Model : string option
+        PlayerUrl : string option
+        Sounds : soundListEntry.Root []
        }
 
     type Msg =
-        | EventsRequestComplete of eventListEntry.Root []
-        | RowClicked of string
+        | SoundssRequestComplete of soundListEntry.Root []
+        | SoundSelected of string
 
     let getSounds =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
+            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/sounds.json"
             let! resp = Http.AsyncRequestString (url = url)
-            return EventsRequestComplete (eventListEntry.Parse resp)
+            return SoundssRequestComplete (soundListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
 
-    let init () = {Model = None} , Cmd.none//getSounds 
+    let init () = {PlayerUrl = None; Sounds = [||]} , getSounds 
     
     let update msg model =
         match msg with
-        | EventsRequestComplete evts ->
-            {model with Model = Some "" }, Cmd.none
+        | SoundssRequestComplete sounds ->
+            {model with Sounds = sounds }, Cmd.none
+        | SoundSelected url ->
+            { model with PlayerUrl = Some url }, Cmd.none
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
-        View.ContentPage (
-            content = View.MediaElement (
-                        source = Media.fromPath "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3",
-                        showsPlaybackControls = true
-                      )
-        )
+        let soundsList (sounds : soundListEntry.Root []) =
+                 View.ListView(
+                     hasUnevenRows = true,
+                     margin = Thickness 10.,
+                     items = [ for sound in sounds ->
+                                     View.ViewCell (
+                                         height = 100.,
+                                         view =
+                                             View.Grid(
+                                                 height = 100.,
+                                                 coldefs = [ Absolute 100.; Star ],
+                                                 rowdefs = [ Absolute 15.; Star ],
+                                                 children = [
+                                                     View.Label(text = sound.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
+                                                     View.Label(text = sound.Description).Column(1).Row(1).RowSpan(2)
+                                                     View.Image(source = ImagePath sound.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
+                                                 ]
+                                             ),
+                                         tapped = (fun _ -> dispatch (SoundSelected sound.Url))
+                                     )
+                             ]
+                     )
+        View.TabbedPage(
+            title = "Sounds",
+            created = (fun target -> target.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom) |> ignore ),
+            tabIndex = 1,
+            children = [
+                View.ContentPage(
+                    title = "Others",
+                    content =
+                        View.StackLayout (
+                            children =
+                                match model.PlayerUrl with
+                                | None ->
+                                    [ soundsList model.Sounds ]
+                                | Some _ ->
+                                    [ View.MediaElement(
+                                            source = Media.fromPath (model.PlayerUrl.Value),
+                                            //showControls = true,
+                                            height = 200.,
+                                            autoPlay = true
+                                        )
+                                      soundsList model.Sounds
+                                    ]
+                        )
+                ).IconImageSource(Image.fromPath "vid")
+                View.ContentPage(
+                    title = "Youtube",
+                    content =
+                        View.StackLayout (
+                            children = [
+                                View.Label ( text = "label")
+                            ]
+                        )
+                ).IconImageSource(Image.fromPath "youtube")
+                
+            ]
+        ).HasNavigationBar(true).HasBackButton(true)

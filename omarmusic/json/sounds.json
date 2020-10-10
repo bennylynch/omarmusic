@@ -1,4 +1,14 @@
 ﻿[
   {
-
-]]
+    "Description": "test mp3",
+    "Url": "https://dl.dropboxusercontent.com/s/d6d19u26z6uumj3/newVinyl110417.mp3?dl=0",
+    "Thumbnail": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+    "Title": "test mp3"
+  },
+  {
+    "Description": "test 2 mp3",
+    "Url": "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3",
+    "Thumbnail": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+    "Title": "test 3 mp3"
+  }
+]

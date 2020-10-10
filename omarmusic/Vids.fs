@@ -59,7 +59,7 @@ module VidPage =
             let! resp = Http.AsyncRequestString (url = url, headers = ["Authorization", sprintf "Bearer %s" accesstoken])
             return PlaylistRequestComplete (playlistResp.Parse resp)
         } |> Cmd.ofAsyncMsg
-    (* https=//www.dropbox.com/s/df2d2gf1dvnr5uj/Sample_1280x720_mp4.mp4 *)
+    
     let getUrls (vidIds : string []) =
         try
             let urls = vidIds |> Array.map (fun vidId ->
@@ -84,7 +84,7 @@ module VidPage =
                     Description = j.VideoDetails.ShortDescription }
             )
             Cmd.ofMsg (VideoInfoRequestComplete vids)
-            //urls |> Cmd.ofAsyncMsg |> Cmd.map VideoInfoRequestComplete
+            
         with
         |e -> failwith e.Message
 
@@ -97,7 +97,7 @@ module VidPage =
         } |> Cmd.ofAsyncMsg
     let initModel = { UChoobs = [||]; Others = [||]; PlayerUrl = None }
     
-    let init () = initModel, getOtherVids //getPlayList 
+    let init () = initModel, getOtherVids
     
     let update msg model =
         match msg with

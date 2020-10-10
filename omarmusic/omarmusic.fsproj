@@ -25,7 +25,6 @@
     <Compile Include="TwitterPage.fs" />
     <Compile Include="UChoobPage.fs" />
     <Compile Include="WebPage.fs" />
-    <Compile Include="InstaPage.fs" />
     <Compile Include="Events.fs" />
     <Compile Include="Sounds.fs" />
     <Compile Include="Vids.fs" />
