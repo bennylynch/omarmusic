@@ -119,6 +119,21 @@ module VidPage =
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
+        let player url =
+            (*
+            ref (View.MediaElement(
+                    source = Media.fromPath url,//(model.PlayerUrl.Value),
+                    showsPlaybackControls = true,
+                    height = 200.,
+                    autoPlay = true
+            )
+            )*)
+            ref (View.VideoView(
+                            source = url,
+                            showControls = true,
+                            height = 200.,
+                            autoPlay = true
+            ))
         let vidlist vids =
                 View.ListView(
                     hasUnevenRows = true,
@@ -155,12 +170,13 @@ module VidPage =
                                 | None ->
                                     [ vidlist model.Others ]
                                 | Some _ ->
-                                    [ View.VideoView(
+                                    [ (*View.VideoView(
                                             source = model.PlayerUrl.Value,
                                             showControls = true,
                                             height = 200.,
                                             autoPlay = true
-                                        )
+                                        )*)
+                                      !(player model.PlayerUrl.Value)
                                       vidlist model.Others
                                     ]
                         )
@@ -174,12 +190,13 @@ module VidPage =
                                 | None ->
                                     [ vidlist model.UChoobs]
                                 | Some _ ->
-                                    [ View.VideoView(
+                                    [ (*View.VideoView(
                                             source = model.PlayerUrl.Value,
                                             showControls = true,
                                             height = 200.,
                                             autoPlay = true
-                                        )
+                                        )*)
+                                      !(player model.PlayerUrl.Value)
                                       (vidlist model.UChoobs)
                                     ]
                         )

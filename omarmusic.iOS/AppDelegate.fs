@@ -12,6 +12,7 @@ type AppDelegate () =
     inherit FormsApplicationDelegate ()
 
     override this.FinishedLaunching (app, options) =
+        Forms.SetFlags("MediaElement_Experimental")
         Forms.Init()
         let appcore = new omarmusic.App()
         this.LoadApplication (appcore)

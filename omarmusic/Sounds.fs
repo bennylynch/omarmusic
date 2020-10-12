@@ -31,7 +31,7 @@ module SoundsPage =
        }
 
     type Msg =
-        | SoundssRequestComplete of soundListEntry.Root []
+        | SoundsRequestComplete of soundListEntry.Root []
         | SoundSelected of string
 
     let getSounds =
@@ -39,20 +39,27 @@ module SoundsPage =
             do! Async.SwitchToThreadPool()
             let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/sounds.json"
             let! resp = Http.AsyncRequestString (url = url)
-            return SoundssRequestComplete (soundListEntry.Parse resp)
+            return SoundsRequestComplete (soundListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
 
     let init () = {PlayerUrl = None; Sounds = [||]} , getSounds 
     
     let update msg model =
         match msg with
-        | SoundssRequestComplete sounds ->
+        | SoundsRequestComplete sounds ->
             {model with Sounds = sounds }, Cmd.none
         | SoundSelected url ->
             { model with PlayerUrl = Some url }, Cmd.none
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
+        let player url =
+            ref (View.MediaElement(
+                    source = Media.fromPath url, //(model.PlayerUrl.Value),
+                    showsPlaybackControls = true,
+                    height = 200.,
+                    autoPlay = true
+            ))
         let soundsList (sounds : soundListEntry.Root []) =
                  View.ListView(
                      hasUnevenRows = true,
@@ -89,12 +96,8 @@ module SoundsPage =
                                 | None ->
                                     [ soundsList model.Sounds ]
                                 | Some _ ->
-                                    [ View.MediaElement(
-                                            source = Media.fromPath (model.PlayerUrl.Value),
-                                            //showControls = true,
-                                            height = 200.,
-                                            autoPlay = true
-                                        )
+                                    [ 
+                                      !(player model.PlayerUrl.Value)
                                       soundsList model.Sounds
                                     ]
                         )

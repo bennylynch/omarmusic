@@ -138,6 +138,7 @@ module App =
         | TweetPageMsg tweetmsg ->
             let newModel, cmd = TweetPage.update tweetmsg (model.TweetPageModel.Value)
             { model with TweetPageModel = Some newModel }, (Cmd.map TweetPageMsg cmd)
+
         | EventsPageMsg evtspagemsg ->
             match evtspagemsg with
             | EventsPage.Msg.RowClicked s ->
@@ -146,6 +147,10 @@ module App =
             | _ ->
                 let newModel, cmd = EventsPage.update evtspagemsg (model.EventsPageModel.Value)
                 { model with EventsPageModel = Some newModel }, (Cmd.map EventsPageMsg cmd)
+
+        |SoundsPageMsg soundPgMsg ->
+            let newModel, cmd = SoundsPage.update soundPgMsg (model.SoundsPageModel.Value)
+            { model with SoundsPageModel = Some newModel }, (Cmd.map SoundsPageMsg cmd)
 
         |_ -> model, Cmd.none
 
@@ -156,14 +161,16 @@ module App =
         let fbPage = allPages.FBPage
         let webPage = allPages.WebPage
         let eventsPage = allPages.EventsPage
+        let soundsPage = allPages.SoundsPage
 
-        match vidsPage,tweetPage, fbPage, webPage, eventsPage with
-        | None,None,None,None,None -> [ mainPage ]
-        | Some vPage,_,_,_,_          -> [ mainPage; vPage ]
-        |_, Some tPage,_,_,_          -> [ mainPage; tPage ]
-        |_,_, Some fPage,_,_          -> [ mainPage; fPage ]
-        |_,_,_, Some wPage,_          -> [ mainPage; wPage ]
-        |_,_,_,_, Some ePage          -> [ mainPage; ePage ]
+        match vidsPage,tweetPage, fbPage, webPage, eventsPage, soundsPage with
+        | None,None,None,None,None,None -> [ mainPage ]
+        | Some vPage,_,_,_,_,_          -> [ mainPage; vPage ]
+        |_, Some tPage,_,_,_,_          -> [ mainPage; tPage ]
+        |_,_, Some fPage,_,_,_          -> [ mainPage; fPage ]
+        |_,_,_, Some wPage,_,_          -> [ mainPage; wPage ]
+        |_,_,_,_, Some ePage,_          -> [ mainPage; ePage ]
+        |_,_,_,_,_, Some sPage          -> [ mainPage; sPage ]
         |_                              -> [ mainPage ]
 
     let view (model: Model) (dispatch : Msg -> unit ) =

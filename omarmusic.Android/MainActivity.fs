@@ -21,7 +21,7 @@ type MainActivity() =
         base.OnCreate (bundle)
 
         Xamarin.Essentials.Platform.Init(this, bundle)
-
+        Xamarin.Forms.Forms.SetFlags("MediaElement_Experimental")
         Xamarin.Forms.Forms.Init (this, bundle)
         
         let appcore  = new omarmusic.App()
