@@ -156,6 +156,7 @@ module VidPage =
                                     )
                             ]
                     )
+        (*
         View.TabbedPage(
             title = "Videos",
             created = (fun target -> target.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom) |> ignore ),
@@ -203,4 +204,42 @@ module VidPage =
                 ).IconImageSource(Image.fromPath "youtube")
                 
             ]
-        ).HasNavigationBar(true).HasBackButton(true)
+        ).HasNavigationBar(true).HasBackButton(true)*)
+
+        (View.ContentPage (
+            backgroundColor = Color.Black,
+            content =
+                View.RelativeLayout(
+                    children =
+                        [ View.Image( source =  ImagePath "background.jpeg", aspect = Aspect.AspectFill )
+                              .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
+                              .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
+                              .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
+                          View.Grid(
+                              coldefs = [ Star; Star ],
+                              rowdefs = [ Star; Star; Absolute 50.],
+                              children = match model.PlayerUrl with
+                                         | None ->
+                                            [ (vidlist model.UChoobs).Row(0).Column(0).ColumnSpan(2) ]
+                                         | Some _ ->
+                                            [ (*View.VideoView(
+                                                    source = model.PlayerUrl.Value,
+                                                    showControls = true,
+                                                    height = 200.,
+                                                    autoPlay = true
+                                                )*)
+                                              (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
+                                              (vidlist model.UChoobs).Row(1).Column(0).ColumnSpan(2)
+                                            ]
+                                         @
+                                         [ 
+                                            View.ImageButton( source = ImagePath "youtube", command = (fun () -> () )).Row(2).Column(0)
+                                            View.ImageButton( source = ImagePath "vid", command = (fun () -> () )).Row(2).Column(1)
+                                         ]
+                        )
+                        .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
+                        .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
+                        .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
+                    ]
+                )
+        )).HasNavigationBar(true).HasBackButton(true)

@@ -200,27 +200,28 @@ module App =
                 content =
                     View.RelativeLayout(
                         children =
-                            [ View.Image( source =  ImagePath "background.jpeg", aspect = Aspect.AspectFill )
+                            [ View.Image( source =  ImagePath "background", aspect = Aspect.AspectFill )
                                   .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
                                   .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
                                   .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                               View.Grid(
                                   coldefs = [ Star; Star; Star; Star ],
-                                  rowdefs = [ Star; Absolute 320.; Absolute 50.; Absolute 20.; Absolute 50.; Star ],
+                                  //rowdefs = [ Star; Absolute 320.; Absolute 50.; Absolute 20.; Absolute 50.; Star  ],
+                                  rowdefs = [ Star; Star ; Star; Auto ; Auto; Auto; Auto ],
                                   children = [
                                       
-                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(4).Column(0)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowSounds)).Row(4).Column(1)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(4).Column(2)//.ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(4).Column(3)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "http://omarmusic.co.uk/"))).Row(3).Column(0)
+                                      View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(3).Column(1)
+                                      View.ImageButton( source = ImagePath "insta", command = (fun () -> dispatch (ShowWeb "https://www.instagram.com/omar_lyefook/" ))).Row(3).Column(2)
+                                      View.ImageButton( source = ImagePath "fb", command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/") )).Row(3).Column(3)
 
-                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "http://omarmusic.co.uk/"))).Row(2).Column(0)
-                                      View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(2).Column(1)
-                                      View.ImageButton( source = ImagePath "insta", command = (fun () -> dispatch (ShowWeb "https://www.instagram.com/omar_lyefook/" ))).Row(2).Column(2)
-                                      View.ImageButton( source = ImagePath "fb", command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/") )).Row(2).Column(3)
-                                ]
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(5).Column(0)
+                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
+                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowSounds)).Row(5).Column(1)
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(5).Column(2)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(5).Column(3)//.ColumnSpan(3)
+                                  ]
                             )
                             .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
                             .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
