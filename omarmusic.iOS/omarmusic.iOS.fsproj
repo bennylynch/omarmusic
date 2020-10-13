@@ -175,20 +175,6 @@
     <Folder Include="Assets.xcassets\merch.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-2.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\F3AFAD2D-F71D-4166-B86B-4F19DD2C7B9F.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-5.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-1.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-2.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-3.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-4.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-5.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-6.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-7.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-1.jpg" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\merch-8.png" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\merch.png" />
@@ -229,6 +215,18 @@
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-5.png" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-6.png" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-7.png" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\F3AFAD2D-F71D-4166-B86B-4F19DD2C7B9F.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-5.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-1.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-2.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-3.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-4.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-5.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-1.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-2.jpg" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>

@@ -118,23 +118,24 @@ module VidPage =
             { model with UChoobs = vidList }, Cmd.none
         | VidSelected url ->
             { model with PlayerUrl = Some url }, Cmd.none
+        | VidListSelected list ->
+            {model with ContextList = Some list}, Cmd.none
         |_ -> model, Cmd.none
 
     let view (model : Model) dispatch =
+        //let player url =
+        //    ref (View.VideoView(
+        //                    source = url,
+        //                    showControls = true,
+        //                    height = 200.,
+        //                    autoPlay = true
+        //    ))
         let player url =
-            (*
             ref (View.MediaElement(
-                    source = Media.fromPath url,//(model.PlayerUrl.Value),
+                    source = Media.fromPath url, //(model.PlayerUrl.Value),
                     showsPlaybackControls = true,
                     height = 200.,
                     autoPlay = true
-            )
-            )*)
-            ref (View.VideoView(
-                            source = url,
-                            showControls = true,
-                            height = 200.,
-                            autoPlay = true
             ))
         let vidlist vids =
                 View.ListView(
@@ -159,56 +160,6 @@ module VidPage =
                                     )
                             ]
                     )
-        (*
-        View.TabbedPage(
-            title = "Videos",
-            created = (fun target -> target.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom) |> ignore ),
-            tabIndex = 1,
-            children = [
-                View.ContentPage(
-                    title = "Others",
-                    content =
-                        View.StackLayout (
-                            children =
-                                match model.PlayerUrl with
-                                | None ->
-                                    [ vidlist model.Others ]
-                                | Some _ ->
-                                    [ (*View.VideoView(
-                                            source = model.PlayerUrl.Value,
-                                            showControls = true,
-                                            height = 200.,
-                                            autoPlay = true
-                                        )*)
-                                      !(player model.PlayerUrl.Value)
-                                      vidlist model.Others
-                                    ]
-                        )
-                ).IconImageSource(Image.fromPath "vid")
-                View.ContentPage(
-                    title = "Youtube",
-                    content =
-                        View.StackLayout (
-                            children =
-                                match model.PlayerUrl with
-                                | None ->
-                                    [ vidlist model.UChoobs]
-                                | Some _ ->
-                                    [ (*View.VideoView(
-                                            source = model.PlayerUrl.Value,
-                                            showControls = true,
-                                            height = 200.,
-                                            autoPlay = true
-                                        )*)
-                                      !(player model.PlayerUrl.Value)
-                                      (vidlist model.UChoobs)
-                                    ]
-                        )
-                ).IconImageSource(Image.fromPath "youtube")
-                
-            ]
-        ).HasNavigationBar(true).HasBackButton(true)*)
-
         (View.ContentPage (
             backgroundColor = Color.Black,
             content =
@@ -221,12 +172,11 @@ module VidPage =
                           View.Grid(
                               coldefs = [ Star; Star; ],
                               rowdefs = [ Star; Star; Absolute 50.],
-                              children = match model.PlayerUrl, model.ContextList with
-                                         | None,None 
-                                         | None,Some "UChoobs" ->
-                                            [ (vidlist model.UChoobs).Row(0).Column(0).ColumnSpan(2) ]
+                              children = (
+                                        match model.PlayerUrl, model.ContextList with
+                                         
                                          | None,Some "Others" ->
-                                            [ (vidlist model.Others).Row(0).Column(0).ColumnSpan(2) ]
+                                            [ (vidlist model.Others).Row(0).Column(0).ColumnSpan(2).RowSpan(2) ]
                                          | Some _, Some "UChoobs" ->
                                             [ (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
                                               (vidlist model.UChoobs).Row(1).Column(0).ColumnSpan(2)
@@ -235,14 +185,17 @@ module VidPage =
                                             [ (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
                                               (vidlist model.Others).Row(1).Column(0).ColumnSpan(2)
                                             ]
+                                         | _,_ ->
+                                           [ (vidlist model.UChoobs).Row(0).Column(0).ColumnSpan(2).RowSpan(2) ]
+                                        )
                                          @
-                                         [ 
-                                            View.ImageButton( source = ImagePath "youtube", command = (fun () -> () )).Row(2).Column(0)
-                                            View.ImageButton( source = ImagePath "vid", command = (fun () -> () )).Row(2).Column(1)
-                                         ]
+                                           [ 
+                                            View.ImageButton( source = ImagePath "youtube", command = (fun () -> dispatch (VidListSelected "UChoobs" ) )).Row(2).Column(0)
+                                            View.ImageButton( source = ImagePath "vid", command = (fun () -> dispatch (VidListSelected "Others" ) )).Row(2).Column(1)
+                                           ]
                         )
-                        .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
-                        .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
+                        .XConstraint(Constraint.RelativeToParent(fun _ -> 0.0))
+                        .WidthConstraint(Constraint.RelativeToParent(fun  parent -> parent.Width))
                         .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                     ]
                 )

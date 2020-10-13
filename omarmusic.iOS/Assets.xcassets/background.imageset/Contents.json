@@ -45,12 +45,12 @@
       "idiom": "ipad"
     },
     {
-      "filename": "37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-6.jpeg",
+      "filename": "background.jpg",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-7.jpeg",
+      "filename": "background-1.jpg",
       "scale": "2x",
       "idiom": "ipad"
     },
@@ -58,18 +58,15 @@
       "idiom": "watch"
     },
     {
-      "filename": "background.jpg",
       "scale": "2x",
       "idiom": "watch"
     },
     {
-      "filename": "background-1.jpg",
       "screenWidth": "{130,145}",
       "scale": "2x",
       "idiom": "watch"
     },
     {
-      "filename": "background-2.jpg",
       "screenWidth": "{146,165}",
       "scale": "2x",
       "idiom": "watch"

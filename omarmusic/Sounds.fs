@@ -54,7 +54,7 @@ module SoundsPage =
 
     let view (model : Model) dispatch =
         let player url =
-            ref (View.MediaElement(
+            (View.MediaElement(
                     source = Media.fromPath url, //(model.PlayerUrl.Value),
                     showsPlaybackControls = true,
                     height = 200.,
@@ -63,6 +63,7 @@ module SoundsPage =
         let soundsList (sounds : soundListEntry.Root []) =
                  View.ListView(
                      hasUnevenRows = true,
+                     backgroundColor = Color.Black,
                      margin = Thickness 10.,
                      items = [ for sound in sounds ->
                                      View.ViewCell (
@@ -73,8 +74,8 @@ module SoundsPage =
                                                  coldefs = [ Absolute 100.; Star ],
                                                  rowdefs = [ Absolute 15.; Star ],
                                                  children = [
-                                                     View.Label(text = sound.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
-                                                     View.Label(text = sound.Description).Column(1).Row(1).RowSpan(2)
+                                                     View.Label(text = sound.Title, fontAttributes = FontAttributes.Bold, textColor = Color.White).Column(1).Row(0)
+                                                     View.Label(text = sound.Description, textColor = Color.White).Column(1).Row(1).RowSpan(2)
                                                      View.Image(source = ImagePath sound.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
                                                  ]
                                              ),
@@ -82,35 +83,29 @@ module SoundsPage =
                                      )
                              ]
                      )
-        View.TabbedPage(
-            title = "Sounds",
-            created = (fun target -> target.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom) |> ignore ),
-            tabIndex = 1,
-            children = [
-                View.ContentPage(
-                    title = "Others",
-                    content =
-                        View.StackLayout (
-                            children =
-                                match model.PlayerUrl with
-                                | None ->
-                                    [ soundsList model.Sounds ]
-                                | Some _ ->
-                                    [ 
-                                      !(player model.PlayerUrl.Value)
-                                      soundsList model.Sounds
-                                    ]
+        (View.ContentPage (
+            backgroundColor = Color.Black,
+            content =
+                View.RelativeLayout(
+                    children =
+                        [ View.Image( source =  ImagePath "background", aspect = Aspect.AspectFill )
+                              .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
+                              .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
+                              .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
+                          View.StackLayout(
+                              
+                              children = match model.PlayerUrl with
+                                         | None ->
+                                             [ soundsList model.Sounds ]
+                                         | Some _ ->
+                                             [ 
+                                               (player model.PlayerUrl.Value)
+                                               soundsList model.Sounds
+                                             ]
                         )
-                ).IconImageSource(Image.fromPath "vid")
-                View.ContentPage(
-                    title = "Youtube",
-                    content =
-                        View.StackLayout (
-                            children = [
-                                View.Label ( text = "label")
-                            ]
-                        )
-                ).IconImageSource(Image.fromPath "youtube")
-                
-            ]
-        ).HasNavigationBar(true).HasBackButton(true)
+                        .XConstraint(Constraint.RelativeToParent(fun _ -> 0.0))
+                        .WidthConstraint(Constraint.RelativeToParent(fun  parent -> parent.Width))
+                        .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
+                    ]
+                )
+        )).HasNavigationBar(true).HasBackButton(true)
