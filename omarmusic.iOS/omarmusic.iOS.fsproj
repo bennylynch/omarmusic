@@ -175,6 +175,20 @@
     <Folder Include="Assets.xcassets\merch.imageset\" />
   </ItemGroup>
   <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-2.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\F3AFAD2D-F71D-4166-B86B-4F19DD2C7B9F.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-5.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-1.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-2.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-3.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-4.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-5.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-6.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-7.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background-1.jpg" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\merch-8.png" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\merch.png" />
@@ -215,20 +229,6 @@
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-5.png" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-6.png" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-7.png" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-10.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\F3AFAD2D-F71D-4166-B86B-4F19DD2C7B9F.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-5.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-1.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-2.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-3.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-4.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-5.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-6.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-7.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-8.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-9.jpeg" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
@@ -315,11 +315,11 @@
     <ImageAsset Include="Assets.xcassets\website.imageset\www-6.png" />
     <ImageAsset Include="Assets.xcassets\website.imageset\www-7.png" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+    <ITunesArtwork Include="iTunesArtwork" />
     <ProjectReference Include="..\omarmusic\omarmusic.fsproj">
       <Project>{51213DF6-7917-4773-9BCF-8B7F68D63509}</Project>
       <Name>omarmusic</Name>
     </ProjectReference>
-    <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets')" />
 </Project>

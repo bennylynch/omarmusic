@@ -207,7 +207,7 @@ module App =
                               View.Grid(
                                   coldefs = [ Star; Star; Star; Star ],
                                   //rowdefs = [ Star; Absolute 320.; Absolute 50.; Absolute 20.; Absolute 50.; Star  ],
-                                  rowdefs = [ Star; Star ; Star; Auto ; Auto; Auto; Auto ],
+                                  rowdefs = [ Star; Star ; Star; Stars 0.3 ; Star; Stars 0.3; Absolute 50. ],
                                   children = [
                                       
                                       View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "http://omarmusic.co.uk/"))).Row(3).Column(0)

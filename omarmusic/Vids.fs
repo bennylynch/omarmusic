@@ -35,6 +35,7 @@ module VidPage =
         PlayerUrl : string option
         UChoobs : Vid []
         Others  : Vid []
+        ContextList : string option
        }
 
     type Msg =
@@ -42,7 +43,7 @@ module VidPage =
         | OtherVidsRequestComplete of vidListEntry.Root []
         | VideoInfoRequestComplete of Vid []
         | VidSelected of string
-
+        | VidListSelected of string
     // OAuth2 authentication using service account JSON file
     let credentials =
         let jsonServiceAccount = sprintf "./service_account.json" //(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles))  
@@ -95,7 +96,8 @@ module VidPage =
             let! resp = Http.AsyncRequestString (url = url)
             return OtherVidsRequestComplete (vidListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
-    let initModel = { UChoobs = [||]; Others = [||]; PlayerUrl = None }
+
+    let initModel = { UChoobs = [||]; Others = [||]; ContextList = None; PlayerUrl = None }
     
     let init () = initModel, getOtherVids
     
@@ -137,6 +139,7 @@ module VidPage =
         let vidlist vids =
                 View.ListView(
                     hasUnevenRows = true,
+                    backgroundColor = Color.Black,
                     margin = Thickness 10.,
                     items = [ for vid in vids ->
                                     View.ViewCell (
@@ -147,8 +150,8 @@ module VidPage =
                                                 coldefs = [ Absolute 100.; Star ],
                                                 rowdefs = [ Absolute 15.; Star ],
                                                 children = [
-                                                    View.Label(text = vid.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
-                                                    View.Label(text = vid.Description).Column(1).Row(1).RowSpan(2)
+                                                    View.Label(text = vid.Title, fontAttributes = FontAttributes.Bold, textColor = Color.White).Column(1).Row(0)
+                                                    View.Label(text = vid.Description, textColor = Color.White).Column(1).Row(1).RowSpan(2)
                                                     View.Image(source = ImagePath vid.Thumbnail, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
                                                 ]
                                             ),
@@ -211,25 +214,26 @@ module VidPage =
             content =
                 View.RelativeLayout(
                     children =
-                        [ View.Image( source =  ImagePath "background.jpeg", aspect = Aspect.AspectFill )
+                        [ View.Image( source =  ImagePath "background", aspect = Aspect.AspectFill )
                               .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
                               .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
                               .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                           View.Grid(
-                              coldefs = [ Star; Star ],
+                              coldefs = [ Star; Star; ],
                               rowdefs = [ Star; Star; Absolute 50.],
-                              children = match model.PlayerUrl with
-                                         | None ->
+                              children = match model.PlayerUrl, model.ContextList with
+                                         | None,None 
+                                         | None,Some "UChoobs" ->
                                             [ (vidlist model.UChoobs).Row(0).Column(0).ColumnSpan(2) ]
-                                         | Some _ ->
-                                            [ (*View.VideoView(
-                                                    source = model.PlayerUrl.Value,
-                                                    showControls = true,
-                                                    height = 200.,
-                                                    autoPlay = true
-                                                )*)
-                                              (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
+                                         | None,Some "Others" ->
+                                            [ (vidlist model.Others).Row(0).Column(0).ColumnSpan(2) ]
+                                         | Some _, Some "UChoobs" ->
+                                            [ (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
                                               (vidlist model.UChoobs).Row(1).Column(0).ColumnSpan(2)
+                                            ]
+                                         | Some _, Some "Others" ->
+                                            [ (!(player model.PlayerUrl.Value)).Row(0).Column(0).ColumnSpan(2)
+                                              (vidlist model.Others).Row(1).Column(0).ColumnSpan(2)
                                             ]
                                          @
                                          [ 
