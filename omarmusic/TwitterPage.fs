@@ -41,7 +41,8 @@ module TweetPage =
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </body>
     </html>"""
-    let view (model: Model) dispatch =
+
+    let view _ dispatch =
         let htmlSrc = new HtmlWebViewSource()
         htmlSrc.Html <- html
         View.ContentPage(

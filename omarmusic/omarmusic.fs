@@ -24,6 +24,7 @@ module App =
         | WebPageMsg of WebPage.Msg
         | EventsPageMsg of EventsPage.Msg
         | SoundsPageMsg of SoundsPage.Msg
+        | StreamsPageMsg of StreamsPage.Msg
         | NavigationPopped
         | ShowVids
         | ShowSounds
@@ -32,6 +33,7 @@ module App =
         | ShowFB
         | ShowWeb of string
         | ShowEvents
+        | ShowStream
 
         
 
@@ -42,6 +44,7 @@ module App =
         WebPageModel : WebPage.Model option
         EventsPageModel : EventsPage.Model option
         SoundsPageModel : SoundsPage.Model option
+        StreamsPageModel : StreamsPage.Model option
         (*/ Workaround Cmd limitation 
         Cannot pop a page in page stack and send Cmd at the same time
         Otherwise it would pop pages 2 times in NavigationPage 
@@ -59,6 +62,7 @@ module App =
           WebPage: ViewElement option
           EventsPage: ViewElement option
           SoundsPage: ViewElement option
+          StreamsPage: ViewElement option
         }
 
     let initModel = {
@@ -68,6 +72,7 @@ module App =
         WebPageModel = None
         EventsPageModel = None
         SoundsPageModel = None
+        StreamsPageModel = None
         WorkaroundNavPageBug = false
         WorkaroundNavPageBugPendingCmd = Cmd.none
     }              
@@ -81,22 +86,25 @@ module App =
         let webModel = model.WebPageModel
         let eventsModel = model.EventsPageModel
         let soundsModel = model.SoundsPageModel
+        let streamsModel = model.StreamsPageModel
 
-        match vidsModel,tweetsModel, fbModel, webModel, eventsModel, soundsModel  with
-        | None, None, None, None, None, None ->
+        match vidsModel,tweetsModel, fbModel, webModel, eventsModel, soundsModel, streamsModel  with
+        | None, None, None, None, None, None, None ->
             model
-        |Some _,_,_,_,_,_ ->
+        |Some _,_,_,_,_,_,_ ->
             {model with VidsPageModel = None}
-        |_, Some _,_,_,_,_->
+        |_, Some _,_,_,_,_,_->
             {model with TweetPageModel = None}
-        |_,_, Some _,_,_,_->
+        |_,_, Some _,_,_,_,_->
             {model with FBPageModel = None}
-        |_,_,_, Some _,_,_->
+        |_,_,_, Some _,_,_,_->
             {model with WebPageModel = None}
-        |_,_,_,_, Some _,_->
+        |_,_,_,_, Some _,_,_->
             {model with EventsPageModel = None}
-        |_,_,_,_,_, Some _->
+        |_,_,_,_,_, Some _,_->
             {model with SoundsPageModel = None}
+        |_,_,_,_,_,_, Some _->
+            {model with StreamsPageModel = None}
 
     let update msg model =
         match msg with
@@ -114,12 +122,14 @@ module App =
         | ShowVids ->
             let vidsModel, cmd = VidPage.init()
             { model with VidsPageModel = Some vidsModel}, (Cmd.map VidPageMsg cmd)
+
         | ShowTweets ->
             let tweetsModel, cmd = TweetPage.init()
             { model with TweetPageModel = Some tweetsModel}, (Cmd.map TweetPageMsg cmd)
-        | ShowFB ->
-            let fbModel, cmd = WebPage.init "https://m.facebook.com/barry"
-            { model with FBPageModel = Some fbModel},  (Cmd.map FBPageMsg cmd)
+
+        //| ShowFB ->
+        //    let fbModel, cmd = WebPage.init "https://m.facebook.com/barry"
+        //    { model with FBPageModel = Some fbModel},  (Cmd.map FBPageMsg cmd)
 
         | ShowWeb url ->
             let webModel, cmd = WebPage.init url // 
@@ -130,7 +140,9 @@ module App =
         | ShowEvents ->
             let evtsModel, cmd = EventsPage.init ()
             { model with EventsPageModel = Some evtsModel },  (Cmd.map EventsPageMsg cmd)
-
+        | ShowStream ->
+                 let sModel, cmd = StreamsPage.init()
+                 { model with StreamsPageModel = Some sModel}, (Cmd.map StreamsPageMsg cmd)
         | VidPageMsg vidpagemsg ->
             let newModel, cmd = VidPage.update vidpagemsg (model.VidsPageModel.Value)
             { model with VidsPageModel = Some newModel }, (Cmd.map VidPageMsg cmd)
@@ -162,16 +174,20 @@ module App =
         let webPage = allPages.WebPage
         let eventsPage = allPages.EventsPage
         let soundsPage = allPages.SoundsPage
+        let streamsPage = allPages.StreamsPage
+        
 
-        match vidsPage,tweetPage, fbPage, webPage, eventsPage, soundsPage with
-        | None,None,None,None,None,None -> [ mainPage ]
-        | Some vPage,_,_,_,_,_          -> [ mainPage; vPage ]
-        |_, Some tPage,_,_,_,_          -> [ mainPage; tPage ]
-        |_,_, Some fPage,_,_,_          -> [ mainPage; fPage ]
-        |_,_,_, Some wPage,_,_          -> [ mainPage; wPage ]
-        |_,_,_,_, Some ePage,_          -> [ mainPage; ePage ]
-        |_,_,_,_,_, Some sPage          -> [ mainPage; sPage ]
-        |_                              -> [ mainPage ]
+        match vidsPage,tweetPage, fbPage, webPage, eventsPage, soundsPage, streamsPage with
+        | None,None,None,None,None,None,None -> [ mainPage ]
+        | Some vPage,_,_,_,_,_,_          -> [ mainPage; vPage ]
+        |_, Some tPage,_,_,_,_,_          -> [ mainPage; tPage ]
+        |_,_, Some fPage,_,_,_,_          -> [ mainPage; fPage ]
+        |_,_,_, Some wPage,_,_,_          -> [ mainPage; wPage ]
+        |_,_,_,_, Some ePage,_,_          -> [ mainPage; ePage ]
+        |_,_,_,_,_, Some sPage,_          -> [ mainPage; sPage ]
+        |_,_,_,_,_,_,Some stPage          -> [ mainPage; stPage ]
+        
+        |_                                -> [ mainPage ]
 
     let view (model: Model) (dispatch : Msg -> unit ) =
 
@@ -193,6 +209,9 @@ module App =
         let soundsPage =
             model.SoundsPageModel
             |> Option.map (fun eModel -> SoundsPage.view eModel (SoundsPageMsg >> dispatch))
+        let streamsPage =
+            model.StreamsPageModel
+            |> Option.map (fun eModel -> StreamsPage.view eModel (StreamsPageMsg >> dispatch))
         let mainPage =
             (View.ContentPage (
                 //title = "Omar Music",
@@ -205,22 +224,22 @@ module App =
                                   .WidthConstraint(Constraint.RelativeToParent(fun parent -> parent.Width))
                                   .HeightConstraint(Constraint.RelativeToParent(fun parent -> parent.Height))
                               View.Grid(
-                                  coldefs = [ Star; Star; Star; Star ],
+                                  coldefs = [ Star; Star; Star; ],
                                   //rowdefs = [ Star; Absolute 320.; Absolute 50.; Absolute 20.; Absolute 50.; Star  ],
-                                  rowdefs = [ Star; Star ; Star; Stars 0.3 ; Star; Stars 0.3; Absolute 50. ],
+                                  rowdefs = [ Star; Star ; Star; Stars 0.4 ; Stars 0.4; Stars 0.4; Absolute 50. ],
                                   children = [
                                       
                                       View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "http://omarmusic.co.uk/"))).Row(3).Column(0)
                                       View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(3).Column(1)
                                       View.ImageButton( source = ImagePath "insta", command = (fun () -> dispatch (ShowWeb "https://www.instagram.com/omar_lyefook/" ))).Row(3).Column(2)
-                                      View.ImageButton( source = ImagePath "fb", command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/") )).Row(3).Column(3)
 
-                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(5).Column(0)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
-                                      //View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch (ShowWeb "https://beta.music.apple.com/us/artist/omar/185861374"))).Row(4).Column(1)
-                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowSounds)).Row(5).Column(1)
-                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(5).Column(2)//.ColumnSpan(3)
-                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(5).Column(3)//.ColumnSpan(3)
+                                      View.ImageButton( source = ImagePath "fb", command = (fun () -> dispatch (ShowWeb "https://www.facebook.com/omarofficialuk/") )).Row(4).Column(0)
+                                      View.ImageButton( source = ImagePath "calendar", command = (fun () -> dispatch (ShowEvents ))).Row(4).Column(1)
+                                      View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowSounds)).Row(4).Column(2)
+
+                                      View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(5).Column(0)
+                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(5).Column(1)
+                                      View.ImageButton( source = ImagePath "stream", command = (fun () -> dispatch (ShowStream ))).Row(5).Column(2)
                                   ]
                             )
                             .XConstraint(Constraint.RelativeToParent(fun parent -> 0.0))
@@ -237,6 +256,7 @@ module App =
                       WebPage = webPage
                       EventsPage = eventsPage
                       SoundsPage = soundsPage
+                      StreamsPage = streamsPage
                     } |> getPages
 
         (View.NavigationPage (

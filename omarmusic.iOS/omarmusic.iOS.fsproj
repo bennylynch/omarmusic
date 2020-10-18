@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.props')" />
+  <Import Project="..\packages\Xamarin.Forms.4.8.0.1560\build\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1560\build\Xamarin.Forms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -104,13 +104,13 @@
     <Reference Include="System.Numerics.Vectors" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\packages\Xamarin.Forms.4.8.0.1364\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.4.8.0.1560\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\packages\Xamarin.Forms.4.8.0.1364\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.4.8.0.1560\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\packages\Xamarin.Forms.4.8.0.1364\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.4.8.0.1560\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
@@ -173,64 +173,22 @@
     <Folder Include="Assets.xcassets\website.imageset\" />
     <Folder Include="Assets.xcassets\vid.imageset\" />
     <Folder Include="Assets.xcassets\merch.imageset\" />
+    <Folder Include="Assets.xcassets\stream.imageset\" />
+    <Folder Include="Assets.xcassets\vid.imageset\" />
+    <Folder Include="Assets.xcassets\merch.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-8.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\merch.imageset\merch.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-1.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-2.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-3.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-4.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-5.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-6.png" />
-    <ImageAsset Include="Assets.xcassets\merch.imageset\merch-7.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-8.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-1.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-2.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-3.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-4.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-5.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-6.png" />
-    <ImageAsset Include="Assets.xcassets\vid.imageset\video-7.png" />
+    <ImageAsset Include="Assets.xcassets\merch.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\calendar.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\calendar-5.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-8.png" />
     <ImageAsset Include="Assets.xcassets\calendar.imageset\events.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-1.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-2.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-3.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-4.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-5.png" />
-    <ImageAsset Include="Assets.xcassets\calendar.imageset\events-6.png" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube4-6.jpeg" />
     <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-1.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-2.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-3.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-4.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-5.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-6.png" />
-    <ImageAsset Include="Assets.xcassets\youtube.imageset\youtube-7.png" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\F3AFAD2D-F71D-4166-B86B-4F19DD2C7B9F.jpeg" />
     <ImageAsset Include="Assets.xcassets\background.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-5.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-1.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-2.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-3.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-4.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\37E6C1CF-7765-47A4-853B-CB7FC4CE014D_1_105_c-5.jpeg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-1.jpg" />
-    <ImageAsset Include="Assets.xcassets\background.imageset\background-2.jpg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background_iphone.jpeg" />
+    <ImageAsset Include="Assets.xcassets\background.imageset\background_ipad.jpeg" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76.png" />
@@ -243,81 +201,33 @@
     <None Include="Info.plist" />
     <None Include="packages.config" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <ImageAsset Include="background.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Data.dataset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Data.dataset\service_account.json" />
     <Content Include="service_account.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <ImageAsset Include="Assets.xcassets\insta.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\insat-5.png" />
     <ImageAsset Include="Assets.xcassets\insta.imageset\Insta.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-1.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-2.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-3.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-4.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-5.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-6.png" />
-    <ImageAsset Include="Assets.xcassets\insta.imageset\Insta-7.png" />
     <ImageAsset Include="Assets.xcassets\twitter.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-5.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-8.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-9.png" />
     <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-1.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-2.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-3.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-4.png" />
-    <ImageAsset Include="Assets.xcassets\twitter.imageset\twitter-6.png" />
     <ImageAsset Include="Assets.xcassets\fb.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-5.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-8.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-9.png" />
     <ImageAsset Include="Assets.xcassets\fb.imageset\facebook.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-1.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-2.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-3.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-4.png" />
-    <ImageAsset Include="Assets.xcassets\fb.imageset\facebook-6.png" />
     <ImageAsset Include="Assets.xcassets\video.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\video-5.png" />
     <ImageAsset Include="Assets.xcassets\video.imageset\youtube.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-1.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-2.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-3.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-4.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-5.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-6.png" />
-    <ImageAsset Include="Assets.xcassets\video.imageset\youtube-7.png" />
     <ImageAsset Include="Assets.xcassets\headphones.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\headphones-5.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\phones-4.png" />
     <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-1.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-2.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-3.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-4.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-5.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-6.png" />
-    <ImageAsset Include="Assets.xcassets\headphones.imageset\sounds-7.png" />
     <ImageAsset Include="Assets.xcassets\website.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\website-6.png" />
     <ImageAsset Include="Assets.xcassets\website.imageset\www.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-1.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-2.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-3.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-4.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-5.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-6.png" />
-    <ImageAsset Include="Assets.xcassets\website.imageset\www-7.png" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <ITunesArtwork Include="iTunesArtwork" />
+    <ImageAsset Include="Assets.xcassets\stream.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\stream.imageset\livestream.png" />
+    <ImageAsset Include="Assets.xcassets\vid.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\vid.imageset\video.png" />
     <ProjectReference Include="..\omarmusic\omarmusic.fsproj">
       <Project>{51213DF6-7917-4773-9BCF-8B7F68D63509}</Project>
       <Name>omarmusic</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1364\build\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\Xamarin.Forms.4.8.0.1560\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1560\build\Xamarin.Forms.targets')" />
 </Project>
