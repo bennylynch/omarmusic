@@ -37,7 +37,7 @@ module SoundsPage =
     let getSounds =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/sounds.json"
+            let url = "https://phelat.io/api/sounds"
             let! resp = Http.AsyncRequestString (url = url)
             return SoundsRequestComplete (soundListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg

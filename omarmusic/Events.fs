@@ -36,7 +36,7 @@ module EventsPage =
     let getEvents =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
+            let url = "https://phelat.io/api/events"//"https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
             let! resp = Http.AsyncRequestString (url = url)
             return EventsRequestComplete (eventListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
