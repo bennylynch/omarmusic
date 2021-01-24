@@ -92,7 +92,8 @@ module VidPage =
     let getOtherVids =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/vids.json"
+            //let url = "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/vids.json"
+            let url = "https://phelat.io/api/vids"
             let! resp = Http.AsyncRequestString (url = url)
             return OtherVidsRequestComplete (vidListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg

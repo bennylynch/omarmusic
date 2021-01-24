@@ -1,11 +1,13 @@
 ﻿[
   {
+    "Sound_id" :  1,
     "Description": "A mix composed of vinyl from recent charity shop digging sessions",
     "Url": "https://dl.dropboxusercontent.com/s/d6d19u26z6uumj3/newVinyl110417.mp3?dl=0",
     "Thumbnail": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
     "Title": "Charity shop vinyl mix"
   },
   {
+    "Sound_id": 2,
     "Description": "27 seconds of music",
     "Url": "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3",
     "Thumbnail": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",

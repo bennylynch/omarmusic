@@ -99,7 +99,7 @@ module SoundsPage =
                                              [ soundsList model.Sounds ]
                                          | Some _ ->
                                              [ 
-                                               (player model.PlayerUrl.Value)
+                                               //(player model.PlayerUrl.Value)
                                                soundsList model.Sounds
                                              ]
                         )

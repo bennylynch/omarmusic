@@ -15,38 +15,17 @@ open System.Web
 
 
 module StreamsPage =
-
-    type Model = 
-       {
-        eventid : string
-       }
-
-    type Msg =
-        | Nothing
-        
-
-    //let initModel = { tweet = "" }
-
-    let init () = {eventid = ""}, Cmd.none 
+    
+    type Model = { Url : string }
+       
+    type Msg = None
+    let init url = {Url = url} , Cmd.none 
     
     let update msg model =
         match msg with
         |_ -> model, Cmd.none
-
-    let html = """<!DOCTYPE html>
-    <html>
-    <head>
-    </head>
-    <body>
-        <embed src='https://vimeo.com/event/31282/embed?autoplay=1' width='100%' height='600px' frameborder = '0'
-               allow = 'autoplay' ></embed>
-        <!--embed src="https://minnit.chat/TheMagnificentChat?embed&&nickname="
-               width='100%' height='600px'  allowTransparency="true"></embed-->
-    </body>
-    </html>"""
-    let view (model) dispatch =
-        let htmlSrc = new HtmlWebViewSource()
-        htmlSrc.Html <- html
+    
+    let view (model: Model) dispatch =
         View.ContentPage(
-            View.WebView(source = htmlSrc)
+            View.WebView(source = WebViewSource.op_Implicit model.Url )
         ).HasNavigationBar(true).HasBackButton(true)

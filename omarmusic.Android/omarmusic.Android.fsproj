@@ -450,7 +450,6 @@
       <Project>{51213DF6-7917-4773-9BCF-8B7F68D63509}</Project>
       <Name>omarmusic</Name>
     </ProjectReference>
-    <None Include="service_account.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <Import Project="..\packages\Xamarin.AndroidX.MultiDex.2.0.1\build\monoandroid90\Xamarin.AndroidX.MultiDex.targets" Condition="Exists('..\packages\Xamarin.AndroidX.MultiDex.2.0.1\build\monoandroid90\Xamarin.AndroidX.MultiDex.targets')" />

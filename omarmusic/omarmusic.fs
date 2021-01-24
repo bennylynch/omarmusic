@@ -14,7 +14,7 @@ open System.IO
 open System.Security.Cryptography
 open FSharp.Data
 open omarmusic.Models
-
+//faiw-ricb-bova-eqlk - app sepcific password
 module App = 
     //notasecret - password for P12 cert
     type Msg = 
@@ -141,7 +141,7 @@ module App =
             let evtsModel, cmd = EventsPage.init ()
             { model with EventsPageModel = Some evtsModel },  (Cmd.map EventsPageMsg cmd)
         | ShowStream ->
-                 let sModel, cmd = StreamsPage.init()
+                 let sModel, cmd = StreamsPage.init "https://phelat.io/embed/insomniac"
                  { model with StreamsPageModel = Some sModel}, (Cmd.map StreamsPageMsg cmd)
         | VidPageMsg vidpagemsg ->
             let newModel, cmd = VidPage.update vidpagemsg (model.VidsPageModel.Value)

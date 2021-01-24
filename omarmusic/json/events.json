@@ -1,23 +1,18 @@
 ﻿[
   {
+    "Event_id": 1,
     "Title": "Boisdale Belgavia",
-    "Date": "12/10/2020",
+    "Date": "2020-03-01T00:00:00.0000000",
     "Description": "Late Session: Jazz, funk, R & B, soul, disco, and Latin perfectly mixed with classic orchestral sounds.",
     "TicketUrl": "https://boisdaletickets.co.uk/p/5098",
     "Thumbnail": "https://boisdaletickets.co.uk/event/image/1459/main.jpg"
   },
   {
+    "Event_id": 2,
     "Title": "Streatham festival - live stream",
-    "Date": "13/10/2020",
+    "Date": "2020-03-01T00:00:00.0000000",
     "Description": "live stream",
     "TicketUrl": "https://omarmusic.co.uk/event/streatham-festival-live-stream/",
-    "Thumbnail": "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/img/jazzcafe.png"
-  },
-  {
-    "Title": "with qbca, Jazz cafe, NW1",
-    "Date": "28/11/2020",
-    "Description": "jazz cafe",
-    "TicketUrl": "https://thejazzcafelondon.com/event/omar-qcba-early-show/",
     "Thumbnail": "https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/img/jazzcafe.png"
   }
 ]

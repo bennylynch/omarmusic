@@ -36,7 +36,7 @@ module EventsPage =
     let getEvents =
         async {
             do! Async.SwitchToThreadPool()
-            let url = "https://phelat.io/api/events"//"https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
+            let url = "https://phelat.io/api/events" //"https://raw.githubusercontent.com/bennylynch/omarmusic/main/omarmusic/json/events.json"
             let! resp = Http.AsyncRequestString (url = url)
             return EventsRequestComplete (eventListEntry.Parse resp)
         } |> Cmd.ofAsyncMsg
@@ -68,7 +68,7 @@ module EventsPage =
                                                 children = [
                                                     View.Label(text = event.Title, fontAttributes = FontAttributes.Bold).Column(1).Row(0)
                                                     View.Label(text = event.Description).Column(1).Row(1).RowSpan(2)
-                                                    View.Label(text = event.Date.ToString() ).Column(1).Row(2).RowSpan(2)
+                                                    View.Label(text = event.Date.ToString().Substring(0,8)).Column(1).Row(2).RowSpan(2)
                                                     View.Image(source = ImagePath event.Thumbnail, backgroundColor = Color.Black, verticalOptions = LayoutOptions.FillAndExpand, horizontalOptions = LayoutOptions.FillAndExpand).Column(0).RowSpan(2)
                                                 ]
                                             ),
