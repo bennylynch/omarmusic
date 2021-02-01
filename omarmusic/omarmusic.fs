@@ -229,7 +229,7 @@ module App =
                                   rowdefs = [ Star; Star ; Star; Stars 0.4 ; Stars 0.4; Stars 0.4; Absolute 50. ],
                                   children = [
                                       
-                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "http://omarmusic.co.uk/"))).Row(3).Column(0)
+                                      View.ImageButton( source = ImagePath "website", command = (fun () -> dispatch (ShowWeb "https://omarmusic.co.uk/"))).Row(3).Column(0)
                                       View.ImageButton( source = ImagePath "twitter", command = (fun () -> dispatch (ShowTweets ))).Row(3).Column(1)
                                       View.ImageButton( source = ImagePath "insta", command = (fun () -> dispatch (ShowWeb "https://www.instagram.com/omar_lyefook/" ))).Row(3).Column(2)
 
@@ -238,7 +238,7 @@ module App =
                                       View.ImageButton( source = ImagePath "headphones", command = (fun _ -> dispatch ShowSounds)).Row(4).Column(2)
 
                                       View.ImageButton( source = ImagePath "video", command = (fun () -> dispatch ShowVids )).Row(5).Column(0)
-                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarlyefook.bandcamp.com/"))).Row(5).Column(1)
+                                      View.ImageButton( source = ImagePath "merch", command = (fun () -> dispatch (ShowWeb "https://omarmusic.co.uk/product-category/t-shirts/"))).Row(5).Column(1)
                                       View.ImageButton( source = ImagePath "stream", command = (fun () -> dispatch (ShowStream ))).Row(5).Column(2)
                                   ]
                             )
